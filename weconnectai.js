@@ -5,7 +5,7 @@
   // Aponta para o seu Cloudflare Worker (definido em README.md / worker.js).
   // Para desenvolvimento local, deixe em branco e as apps chamam api.anthropic.com
   // diretamente (modo demo, igual aos ficheiros originais).
-  const AI_PROXY_URL = 'https://ai-proxy.weconnectai.pt';  // <-- SUBSTITUIR pelo seu subdomínio Cloudflare
+  const AI_PROXY_URL = 'https://weconnectai-ai-proxy.sonia-weconnectai.workers.dev';  // <-- SUBSTITUIR pelo seu subdomínio Cloudflare
   const ANTHROPIC_URL = AI_PROXY_URL || 'https://api.anthropic.com/v1/messages';
 
   const STRINGS = {
