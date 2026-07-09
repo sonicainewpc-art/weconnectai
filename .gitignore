@@ -1,0 +1,29 @@
+# Cloudflare Worker — secrets locais (NUNCA committar!)
+# Contém a chave da Anthropic API. Se for para o GitHub, qualquer pessoa pode usar a sua chave.
+.dev.vars
+.dev.vars.*
+
+# Secrets e configs locais
+.dev.vars
+.env
+.env.local
+
+# Wrangler / Cloudflare
+.wrangler/
+.miniflare/
+
+# Dependências Node (se usar)
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+*.swp

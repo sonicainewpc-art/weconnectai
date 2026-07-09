@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Renovation Scope & Cost Estimator — WeconnectAi</title>
+  <meta name="description" content="A ballpark €/m² range for older Algarve properties plus a list of which items are likely exempt vs. likely to trigger a licença. Free tool by WeconnectAi." />
+  <meta name="theme-color" content="#1B2A45" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231B2A45'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-family='Georgia' font-size='18' font-weight='600'%3EW%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../weconnectai.css" />
+</head>
+<body>
+
+<nav class="wc-nav">
+  <div class="wc-nav-inner">
+    <a class="wc-brand" href="/"><span class="wc-brand-mark">W</span><span><span class="wc-brand-name">WeconnectAi</span><span class="wc-brand-tag">Algarve · Engineering</span></span></a>
+    <button class="wc-nav-toggle" aria-label="Menu">Menu</button>
+    <div class="wc-nav-links">
+      <a class="wc-nav-link" href="/#services" data-i18n="nav.services">Services</a>
+      <a class="wc-nav-link active" href="/#apps" data-i18n="nav.apps">Free apps</a>
+      <a class="wc-nav-link" href="/#about" data-i18n="nav.about">About</a>
+      <a class="wc-nav-link" href="/#contact" data-i18n="nav.contact">Contact</a>
+      <div class="wc-lang-switch"><button class="wc-lang-btn" data-lang="pt">PT</button><button class="wc-lang-btn" data-lang="en">EN</button></div>
+      <a class="wc-nav-cta" href="/#contact" data-i18n="nav.book">Request a quote</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wc-demo-banner"><b>Demo mode:</b> calls the Anthropic API via the Cloudflare Worker proxy configured in <code>weconnectai.js</code>.</div>
+
+<header class="wc-page-hero" style="padding: 36px 24px 24px;">
+  <div class="wc-page-hero-inner">
+    <div class="wc-eyebrow">App 04 · Ballpark Scope Tool</div>
+    <h1 class="wc-h1" style="font-size: 36px;">Renovation Scope & Cost Estimator</h1>
+    <p class="wc-lede" style="font-size: 15px;">A ballpark €/m² range for older Algarve properties plus a list of which items are likely exempt vs. likely to trigger a licença. Useful for sanity-checking a project before commissioning real quotes.</p>
+  </div>
+</header>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+.rce-root{--paper:#F4F0E4;--paper-line:#E3DCC9;--ink:#1B2A45;--ink-soft:#4C5A72;--teal:#2D6E76;--olive:#5C6E3F;--brick:#A13D2E;--ochre:#B6862C;--white:#FCFBF6;font-family:'IBM Plex Sans',sans-serif;background:var(--paper);background-image:linear-gradient(var(--paper-line) 1px, transparent 1px),linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);background-size:28px 28px;color:var(--ink);padding:24px;border-radius:4px;max-width:var(--maxw);margin:0 auto;box-sizing:border-box}
+.rce-root *{box-sizing:border-box}
+.rce-header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.rce-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal)}
+.rce-title{font-family:'Fraunces',serif;font-weight:600;font-size:24px;margin:4px 0 0 0;line-height:1.1}
+.rce-stamp{font-family:'IBM Plex Mono',monospace;font-size:11px;text-align:right;color:var(--ink-soft);border:1px solid var(--ink-soft);padding:6px 10px;border-radius:3px;line-height:1.5}
+.rce-banner{background:#F1E4CE;border:1px solid var(--ochre);border-left:4px solid var(--ochre);color:var(--ink);font-size:12.5px;line-height:1.5;padding:10px 14px;border-radius:3px;margin-bottom:20px}
+.rce-banner b{color:#7A5A1E}
+.rce-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:900px){.rce-grid{grid-template-columns:1fr}}
+.rce-panel{background:var(--white);border:1px solid var(--paper-line);border-radius:6px;padding:18px}
+.rce-panel h2{font-family:'Fraunces',serif;font-size:15px;font-weight:600;margin:0 0 12px 0;display:flex;align-items:center;gap:8px}
+.rce-panel h2 .n{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--white);background:var(--ink);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.rce-field{margin-bottom:12px}
+.rce-field label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:4px}
+.rce-field .hint{font-size:11px;color:var(--ink-soft);opacity:0.85;display:block;margin-top:3px}
+.rce-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input,select,textarea{width:100%;font-family:'IBM Plex Sans',sans-serif;font-size:13px;padding:8px 10px;border:1px solid #C9C2AC;border-radius:4px;background:var(--white);color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--teal);outline-offset:1px;border-color:var(--teal)}
+.rce-btn{width:100%;background:var(--ink);color:var(--white);border:none;padding:11px 14px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;margin-top:4px}
+.rce-btn:hover:not(:disabled){background:var(--teal)}
+.rce-btn:disabled{opacity:0.55;cursor:default}
+.rce-scope-group{margin-bottom:16px}
+.rce-scope-group-title{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px}
+.rce-check-row{display:flex;align-items:flex-start;gap:8px;padding:6px 0;font-size:13px}
+.rce-check-row input{width:auto;margin-top:2px}
+.rce-check-row label{flex:1;cursor:pointer}
+.rce-cost-box{background:var(--paper);border:1px solid var(--paper-line);border-radius:5px;padding:16px;margin-bottom:16px}
+.rce-cost-figure{font-family:'Fraunces',serif;font-weight:600;font-size:26px;color:var(--ink)}
+.rce-cost-figure span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);font-weight:400;margin-left:6px;display:block;margin-top:4px}
+.rce-tier-label{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;padding:3px 8px;border-radius:3px;color:var(--white);display:inline-block;margin-bottom:8px}
+.tier-0{background:var(--ink-soft)}.tier-1{background:var(--olive)}.tier-2{background:#7A8F4A}.tier-3{background:var(--ochre)}.tier-4{background:var(--brick)}
+.rce-cost-note{font-size:11.5px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
+.rce-permit-list{margin-top:4px}
+.rce-permit-item{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--paper-line)}
+.rce-permit-item:last-child{border-bottom:none}
+.rce-permit-badge{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;text-transform:uppercase;padding:3px 7px;border-radius:3px;color:var(--white);white-space:nowrap;margin-top:1px}
+.badge-exempt{background:var(--olive)}.badge-exempt_check{background:#7A8F4A}.badge-exempt_check_facade{background:#7A8F4A}.badge-comunicacao_previa{background:var(--ochre)}.badge-licenciamento{background:var(--brick)}.badge-licenciamento_plus_registration{background:var(--brick)}
+.rce-permit-body .item{font-weight:600;font-size:13px;margin-bottom:2px}
+.rce-permit-body .note{font-size:12px;color:var(--ink-soft);line-height:1.4}
+.rce-empty{color:var(--ink-soft);font-size:13px;text-align:center;padding:20px 10px}
+.rce-ai-result{margin-top:16px;font-size:13px;line-height:1.55}
+.rce-ai-result .summary{background:#EFEADC;border-left:3px solid var(--teal);padding:12px 14px;border-radius:3px;margin-bottom:10px}
+.rce-ai-result ul{margin:6px 0;padding-left:18px}
+.rce-ai-result li{margin-bottom:6px}
+.rce-disclaimer{font-size:11px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;line-height:1.5;margin-top:14px;padding-top:10px;border-top:1px dashed #C9C2AC}
+.rce-loading{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal);padding:12px 0}
+.rce-spinner{width:14px;height:14px;border:2px solid var(--paper-line);border-top-color:var(--teal);border-radius:50%;animation:rcespin 0.7s linear infinite}
+@keyframes rcespin{to{transform:rotate(360deg)}}
+</style>
+
+<div class="rce-root">
+  <div class="rce-header">
+    <div><div class="rce-eyebrow">Ballpark Scope Tool — Prototype v0.1</div><h1 class="rce-title">Renovation Cost & Scope Estimator</h1></div>
+    <div class="rce-stamp">Order-of-magnitude only<br/>Not a quantity takeoff</div>
+  </div>
+  <div class="rce-banner"><b>This is a ballpark tool, not a quote.</b> It sits above detailed quantity takeoff on purpose — it gives a rough €/m² range and flags which parts of the scope likely need council sign-off, so a buyer or agent can sanity-check a project before commissioning a real survey and contractor quotes.</div>
+  <div class="rce-grid">
+    <div class="rce-panel">
+      <h2><span class="n">1</span>Property & scope</h2>
+      <div class="rce-row">
+        <div class="rce-field"><label>Construction year</label><select id="f-year"><option value="pre1950">Before 1950</option><option value="1950_1990" selected>1950–1990</option><option value="1991_2006">1991–2006</option><option value="post2006">2007 or later</option></select></div>
+        <div class="rce-field"><label>Floor area under renovation (m²)</label><input id="f-area" type="number" placeholder="120" /></div>
+      </div>
+      <div class="rce-row">
+        <div class="rce-field"><label>Building type</label><select id="f-type"><option>Apartment</option><option>Detached house (moradia)</option><option>Townhouse / semi-detached</option><option>Rural property (quinta / monte)</option></select></div>
+        <div class="rce-field"><label>Historic centre / protected zone?</label><select id="f-heritage"><option value="no">No</option><option value="yes">Yes</option><option value="unsure">Unsure</option></select></div>
+      </div>
+      <div class="rce-scope-group"><div class="rce-scope-group-title">Cosmetic / surface</div><div id="group-cosmetic"></div></div>
+      <div class="rce-scope-group"><div class="rce-scope-group-title">Systems & fixtures</div><div id="group-systems"></div></div>
+      <div class="rce-scope-group"><div class="rce-scope-group-title">Structural & envelope</div><div id="group-structural"></div></div>
+      <div class="rce-scope-group"><div class="rce-scope-group-title">Scope & use changes</div><div id="group-scope"></div></div>
+      <button class="rce-btn" id="explain-btn">Explain this scope</button>
+    </div>
+    <div class="rce-panel">
+      <h2><span class="n">2</span>Ballpark cost</h2>
+      <div id="cost-wrap"></div>
+      <h2><span class="n">3</span>Likely permit triggers</h2>
+      <div class="rce-permit-list" id="permit-wrap"><div class="rce-empty">Select the intended work on the left to see likely permit triggers here.</div></div>
+      <div id="ai-result-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const WORK_ITEMS = [
+    { id:'paint', group:'group-cosmetic', label:'Painting / surface finishes', tier:1, permit:'exempt', note:'Purely cosmetic — generally exempt from prior control (obra de escassa relevância urbanística).' },
+    { id:'flooring', group:'group-cosmetic', label:'Flooring replacement', tier:1, permit:'exempt', note:'Interior finish only — generally exempt.' },
+    { id:'kitchen', group:'group-systems', label:'Kitchen renovation (fixtures, no structural change)', tier:2, permit:'exempt_check', note:'Usually exempt if no structural walls or façade are touched — confirm if plumbing/venting routes change significantly.' },
+    { id:'bathroom', group:'group-systems', label:'Bathroom renovation (fixtures, no structural change)', tier:2, permit:'exempt_check', note:'Same logic as kitchen — usually exempt if non-structural.' },
+    { id:'rewire', group:'group-systems', label:'Electrical rewiring', tier:2, permit:'exempt', note:'Interior technical work, generally exempt from prior control, but must meet electrical code and be certified.' },
+    { id:'replumb', group:'group-systems', label:'Full replumbing', tier:2, permit:'exempt_check', note:'Generally exempt if pipe runs stay internal — confirm if routes cross structural elements.' },
+    { id:'windows_same', group:'group-structural', label:'Window/door replacement (same openings)', tier:2, permit:'exempt_check_facade', note:'Usually exempt, but historic centres or façade-protected zones may require prior notice — check locally.' },
+    { id:'new_openings', group:'group-structural', label:'New openings in walls (windows/doors)', tier:3, permit:'comunicacao_previa', note:'Altering the façade or adding openings typically requires at least comunicação prévia.' },
+    { id:'nonstructural_walls', group:'group-structural', label:'Remove/move interior walls (non-structural)', tier:2, permit:'exempt_check', note:'Often exempt if genuinely non-structural — but this must be confirmed by an engineer before work starts, never assumed.' },
+    { id:'structural_walls', group:'group-structural', label:'Remove/move structural walls', tier:4, permit:'licenciamento', note:'Structural alteration — needs a structural engineer, an "obras de alteração" project, and licensing/comunicação prévia with specialty projects.' },
+    { id:'roof_same', group:'group-structural', label:'Roof repair/replacement (same shape)', tier:2, permit:'exempt_check', note:'Conservation work is often exempt — but changing visible roofing materials can require notice in some municipalities.' },
+    { id:'roof_change', group:'group-structural', label:'Roof structure change / added floor', tier:4, permit:'licenciamento', note:'Changing volume or height triggers full licensing — must be checked against PDM height and índice de construção limits.' },
+    { id:'extension', group:'group-scope', label:'Extension (increase footprint)', tier:4, permit:'licenciamento', note:'Increasing built area requires licensing/comunicação prévia and must respect PDM parameters (índice de utilização, afastamentos).' },
+    { id:'change_use', group:'group-scope', label:'Change of use (e.g. to tourism rental / commercial)', tier:3, permit:'licenciamento_plus_registration', note:'Needs an "autorização de utilização" for the new use, plus separate registration (e.g. Alojamento Local) if applicable.' },
+    { id:'energy_retrofit', group:'group-scope', label:'Energy retrofit (insulation, solar, heat pump)', tier:2, permit:'exempt_check', note:'Usually exempt as conservation/efficiency work — but exterior insulation (ETICS) changing the façade may need notice.' }
+  ];
+  const TIER_INFO = {
+    0: { label:'No scope selected', low:0, high:0 },
+    1: { label:'Cosmetic refresh', low:200, high:450 },
+    2: { label:'Standard renovation', low:450, high:900 },
+    3: { label:'Elevated scope', low:700, high:1300 },
+    4: { label:'Structural / major works', low:1200, high:2500 }
+  };
+  const PERMIT_LABELS = {
+    exempt: 'Likely exempt', exempt_check: 'Likely exempt — confirm', exempt_check_facade: 'Likely exempt — check façade',
+    comunicacao_previa: 'Likely needs comunicação prévia',
+    licenciamento: 'Likely needs licenciamento',
+    licenciamento_plus_registration: 'Needs licensing + registration'
+  };
+  const checkedItems = {};
+
+  function renderChecklists(){
+    const groups = {};
+    WORK_ITEMS.forEach(item => { groups[item.group] = groups[item.group] || []; groups[item.group].push(item); });
+    Object.entries(groups).forEach(([groupId, items]) => {
+      $(groupId).innerHTML = items.map(item => `<div class="rce-check-row"><input type="checkbox" id="chk-${item.id}" data-id="${item.id}" /><label for="chk-${item.id}">${item.label}</label></div>`).join('');
+    });
+    document.querySelectorAll('.rce-check-row input').forEach(cb => cb.addEventListener('change', e => { checkedItems[e.target.dataset.id] = e.target.checked; renderResults(); }));
+  }
+  function ageMultiplier(yearVal){ return { pre1950: 1.35, '1950_1990': 1.15, '1991_2006': 1.05, post2006: 1.0 }[yearVal] || 1.0; }
+
+  function renderResults(){
+    const selected = WORK_ITEMS.filter(item => checkedItems[item.id]);
+    const maxTier = selected.length ? Math.max(...selected.map(i => i.tier)) : 0;
+    const area = parseFloat($('f-area').value) || 0;
+    const ageMult = ageMultiplier($('f-year').value);
+    const tierInfo = TIER_INFO[maxTier];
+    let low = tierInfo.low * ageMult, high = tierInfo.high * ageMult;
+    const totalLow = Math.round(low * area), totalHigh = Math.round(high * area);
+    $('cost-wrap').innerHTML = `<div class="rce-cost-box"><span class="rce-tier-label tier-${maxTier}">${tierInfo.label}</span><div class="rce-cost-figure">${area > 0 ? `€${totalLow.toLocaleString()}–€${totalHigh.toLocaleString()}` : `€${Math.round(low)}–€${Math.round(high)} / m²`}<span>${area > 0 ? `€${Math.round(low)}–€${Math.round(high)} / m² × ${area} m², labour + materials, before IVA` : 'Enter a floor area for a total estimate'}</span></div><div class="rce-cost-note">Reduced 6% IVA typically applies to renovation of homes over 2 years old (vs. 23% for new construction/extensions) — confirm eligibility with your accountant. Add a 10–20% contingency for buildings over 30 years old; older Algarve stock often hides plumbing, wiring, or damp issues not visible on a walkthrough.${$('f-heritage').value !== 'no' ? "<br/><b>Heritage/protected zone flagged:</b> expect additional consultation with the câmara's cultural heritage department regardless of scope." : ''}</div></div>`;
+    if (selected.length === 0){ $('permit-wrap').innerHTML = `<div class="rce-empty">Select the intended work on the left to see likely permit triggers here.</div>`; }
+    else { $('permit-wrap').innerHTML = selected.map(item => `<div class="rce-permit-item"><span class="rce-permit-badge badge-${item.permit}">${PERMIT_LABELS[item.permit]}</span><div class="rce-permit-body"><div class="item">${item.label}</div><div class="note">${item.note}</div></div></div>`).join(''); }
+  }
+  renderChecklists(); renderResults();
+  ['f-area','f-year','f-heritage'].forEach(id => $(id).addEventListener('input', renderResults));
+  $('f-heritage').addEventListener('change', renderResults);
+
+  async function explainScope(){
+    const btn = $('explain-btn');
+    const selected = WORK_ITEMS.filter(item => checkedItems[item.id]);
+    if (selected.length === 0){ $('ai-result-wrap').innerHTML = `<div class="rce-empty">Select at least one item in the scope checklist first.</div>`; return; }
+    btn.disabled = true;
+    $('ai-result-wrap').innerHTML = `<div class="rce-loading"><div class="rce-spinner"></div>Sequencing the scope…</div>`;
+    const payload = { construction_year: $('f-year').value, building_type: $('f-type').value, floor_area_m2: $('f-area').value, heritage_zone: $('f-heritage').value, selected_work: selected.map(i => i.label) };
+    const systemPrompt = `You help a real estate agent or buyer understand a rough renovation scope for an older Algarve property BEFORE commissioning a detailed survey, architect, or contractor quotes. You are not an architect, engineer, or quantity surveyor, and this is not a project plan or a quote.
+
+Given the selected work items and property details, write:
+1. A short plain-language narrative (2-4 sentences) describing the overall renovation in coherent terms — what kind of project this adds up to.
+2. A short list of things a professional (architect/engineer/contractor) should specifically confirm on-site before any budget is trusted — focus on the items most likely to hide surprises (structural condition, damp, old wiring/plumbing behind walls, roof structure, foundation on sloped or rural plots, heritage constraints).
+3. A one-line note on sensible sequencing if the scope spans multiple categories (e.g. structural work before finishes).
+
+Do not invent specific costs beyond what's already provided. Do not state definitive legal/permit conclusions — flag things as needing confirmation with a licensed professional or the câmara municipal.
+
+Respond with ONLY valid JSON, no markdown fences, no preamble, in this shape:
+{"narrative":"2-4 sentence plain-language description, in English","confirm_onsite":["short item 1","short item 2","..."],"sequencing_note":"one sentence","disclaimer":"one sentence noting this is a ballpark, non-binding overview and real quotes require a site visit and detailed survey"}`;
+
+    try{
+      const clean = await window.wcCallAI(systemPrompt, `Renovation scope:\n${JSON.stringify(payload, null, 2)}`);
+      const result = JSON.parse(clean);
+      $('ai-result-wrap').innerHTML = `<div class="rce-ai-result"><div class="summary">${result.narrative || ''}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-soft);margin-bottom:4px;">Confirm on-site before trusting any budget</div><ul>${(result.confirm_onsite||[]).map(s=>`<li>${s}</li>`).join('')}</ul><div style="font-size:12.5px;"><b>Sequencing:</b> ${result.sequencing_note || ''}</div><div class="rce-disclaimer">${result.disclaimer || 'Ballpark, non-binding overview only.'}</div></div>`;
+    } catch(err){
+      $('ai-result-wrap').innerHTML = `<div class="rce-empty">Something went wrong. Try again.</div>`;
+      console.error(err);
+    } finally { btn.disabled = false; }
+  }
+  $('explain-btn').addEventListener('click', explainScope);
+})();
+</script>
+
+<section class="wc-section" style="background: var(--paper); padding: 40px 0;">
+  <div class="wc-container">
+    <div class="wc-lead" style="max-width: 720px;">
+      <h3>Want a real engineer to manage this renovation?</h3>
+      <p>Brief, contractor selection, contract review, on-site coordination. The real version of this tool — with quantities, real quotes, and a project to hand to a builder.</p>
+      <form onsubmit="return wcSubmitLead(this, 'renovation-app')" data-to="geral@weconnectai.pt">
+        <div class="wc-lead-row">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Email" required />
+        </div>
+        <div class="wc-lead-row">
+          <input type="text" name="municipality" placeholder="Municipality / parish" />
+          <input type="text" name="phone" placeholder="Phone / WhatsApp (optional)" />
+        </div>
+        <textarea name="message" placeholder="Property type, age, intended scope, when you'd like to start." style="margin-bottom: 10px;"></textarea>
+        <button class="wc-lead-btn" type="submit">Request renovation management</button>
+        <p class="wc-lead-note">Opens your email client. We reply within one working day.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="wc-cookies hidden">
+  <p data-i18n-html="cookies.body">We use essential cookies (language, session) and — with your consent — measurement cookies. You can change your choice anytime in our <a href="/privacy.html">privacy policy</a>.</p>
+  <div class="wc-cookies-btns">
+    <button data-cookie-accept data-i18n="cookies.accept">Accept</button>
+    <button class="wc-decline" data-cookie-decline data-i18n="cookies.decline">Essential only</button>
+  </div>
+</div>
+
+<footer class="wc-footer">
+  <div class="wc-footer-inner">
+    <div><div class="wc-footer-brand">WeconnectAi</div><p class="wc-footer-tag" data-i18n="footer.tag">Pre-screening apps and civil engineering services in the Algarve. Free apps — professional services on quote.</p></div>
+    <div><h4>Free apps</h4><ul><li><a href="/apps/compliance.html">Compliance</a></li><li><a href="/apps/feasibility.html">Feasibility</a></li><li><a href="/apps/licensing.html">Licensing</a></li><li><a href="/apps/renovation.html">Renovation</a></li><li><a href="/apps/energy.html">Energy</a></li></ul></div>
+    <div><h4>Services</h4><ul><li><a href="/#services">Construction oversight</a></li><li><a href="/#services">Compliance</a></li><li><a href="/#services">Licensing</a></li><li><a href="/#services">Renovation</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="/#about">About</a></li><li><a href="/#contact">Contact</a></li><li><a href="/privacy.html">Privacy</a></li><li><a href="/terms.html">Terms</a></li></ul></div>
+  </div>
+  <div class="wc-footer-bottom"><span data-i18n="footer.copy">© 2026 WeconnectAi · Algarve, Portugal</span><span><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span></div>
+</footer>
+
+<script src="../weconnectai.js"></script>
+</body>
+</html>
