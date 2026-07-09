@@ -9,7 +9,7 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         headers: {
-          'Access-Control-Allow-Origin': 'https://weconnectai.pt',
+          'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'POST, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type',
           'Access-Control-Max-Age': '86400',
@@ -39,7 +39,7 @@ export default {
         status: 429,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://weconnectai.pt'
+          'Access-Control-Allow-Origin': '*'
         }
       });
     }
@@ -73,7 +73,7 @@ export default {
       status: resp.status,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://weconnectai.pt',
+        'Access-Control-Allow-Origin': '*',
         'Cache-Control': 'no-store'
       }
     });

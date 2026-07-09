@@ -1,0 +1,9 @@
+name = "weconnectai-ai-proxy"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+ALLOWED_ORIGIN = "*"
+
+# wrangler secret put ANTHROPIC_API_KEY
+# (set via CLI, nunca em plaintext no repo)
