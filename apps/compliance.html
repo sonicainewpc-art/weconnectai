@@ -96,7 +96,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--teal);outline-of
       <div class="acc-row"><div class="acc-field"><label>Plot area (m²)</label><input id="f-plot" type="number" placeholder="800" /></div><div class="acc-field"><label>Intended use</label><select id="f-use"><option>Residential (single-family)</option><option>Residential (multi-family)</option><option>Tourism / short-term rental</option><option>Commercial</option><option>Industrial / storage</option><option>Renovation / extension of existing</option></select></div></div>
       <div class="acc-row3"><div class="acc-field"><label>Proposed floor area (m²)</label><input id="f-area" type="number" placeholder="240" /></div><div class="acc-field"><label>Height (m)</label><input id="f-height" type="number" placeholder="6.5" /></div><div class="acc-field"><label>Floors above ground</label><input id="f-floors" type="number" placeholder="2" /></div></div>
       <div class="acc-row3"><div class="acc-field"><label>Setback — front (m)</label><input id="f-front" type="number" placeholder="5" /></div><div class="acc-field"><label>Setback — side (m)</label><input id="f-side" type="number" placeholder="3" /></div><div class="acc-field"><label>Setback — rear (m)</label><input id="f-rear" type="number" placeholder="3" /></div></div>
-      <div class="acc-field"><label>RAN / REN status</label><select id="f-ranren"><option value="no">Not in RAN or REN</option><option value="yes">Within RAN or REN zone</option><option value="unsure">Unsure / not checked</option></select><span class="hint">Reserva Agrícola / Ecológica Nacional — protected zones with extra restrictions.</span></div>
+      <div class="acc-field"><label>RAN / REN status</label><select id="f-ranren"><option value="no">Not in RAN or REN</option><option value="yes">Within RAN or REN zone</option><option value="unsure">Unsure / not checked</option></select><span class="hint">Reserva Agrícola / Ecológica Nacional.</span></div>
       <div class="acc-field"><label>Relevant PDM / regulation text (recommended)</label><textarea id="f-regtext" placeholder="Paste the applicable clause(s) from the municipality's PDM..."></textarea><span class="hint">The analysis is only as accurate as the text you provide.</span></div>
       <button class="acc-btn" id="f-submit">Run compliance screening</button>
     </div>
@@ -180,8 +180,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--teal);outline-of
       var result = JSON.parse(clean);
       renderReport(result);
       $('diagram-wrap').innerHTML = drawDiagram(parseFloat(payload.plot_area_m2), parseFloat(payload.floor_area_m2), parseFloat(payload.floors), parseFloat(payload.setback_front_m), parseFloat(payload.setback_side_m), parseFloat(payload.setback_rear_m));
-      window.wcStore.set('check:' + Date.now(), { payload: payload, result: result, ts: Date.now() });
-      loadHistory();
+      if (window.wcStore) {
+        window.wcStore.set('check:' + Date.now(), { payload: payload, result: result, ts: Date.now() });
+        loadHistory();
+      }
     } catch(err){
       $('report-wrap').innerHTML = '<div class="acc-empty">Error: ' + (err.message || 'something went wrong') + '. Try again.</div>';
       console.error(err);
@@ -190,6 +192,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--teal);outline-of
   $('f-submit').addEventListener('click', runScreening);
 
   function loadHistory(){
+    if (typeof window.wcStore === 'undefined' || typeof window.wcStore.list !== 'function') {
+      $('history-wrap').innerHTML = '';
+      return;
+    }
     var keys = window.wcStore.list('check:').slice(0, 8);
     if (keys.length === 0) { $('history-wrap').innerHTML = ''; return; }
     var html = '<div style="font-family:IBM Plex Mono;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#4C5A72;margin-bottom:6px;">Recent checks</div>';
@@ -231,7 +237,17 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--teal);outline-of
       });
     });
   }
-  loadHistory();
+
+  // Load history AFTER weconnectai.js has loaded
+  if (typeof window.wcStore !== 'undefined') {
+    loadHistory();
+  } else {
+    setTimeout(function(){
+      if (typeof window.wcStore !== 'undefined') {
+        loadHistory();
+      }
+    }, 100);
+  }
 })();
 </script>
 
