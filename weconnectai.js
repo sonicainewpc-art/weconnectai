@@ -224,20 +224,57 @@
     if (decline) decline.addEventListener('click', function(){ localStorage.setItem('wc-cookies','decline'); banner.classList.add('hidden'); });
   }
 
-  // ===== LEAD CAPTURE =====
-  window.wcSubmitLead = function(form, source){
-    if (!form) return false;
-    var data = new FormData(form);
+  // ===== LEAD CAPTURE (Web3Forms) =====
+window.wcSubmitLead = async function(form, source){
+  if (!form) return false;
+  var data = new FormData(form);
+  var payload = {
+    access_key: 'e29393bd-9c89-4ff0-af84-aeac777fd871',
+    subject: 'WeconnectAi lead - ' + (source || 'contact'),
+    from_name: 'WeconnectAi Site',
+    replyto: data.get('email') || '',
+    name: data.get('name') || '',
+    email: data.get('email') || '',
+    phone: data.get('phone') || '',
+    topic: data.get('topic') || '',
+    message: data.get('message') || '',
+    source: source || 'unknown',
+    page: location.pathname,
+    lang: getLang()
+  };
+
+  try {
+    var response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var result = await response.json();
+    if (result.success) {
+      var ok = form.querySelector('.wc-lead-ok');
+      if (!ok) {
+        ok = document.createElement('p');
+        ok.className = 'wc-lead-ok';
+        ok.style.cssText = 'color:#B6862C;font-weight:600;padding:12px;background:#F1E4CE;border-radius:4px;margin-top:10px;';
+        ok.textContent = 'Obrigado! Recebemos a sua mensagem e respondemos dentro de 1 dia util.';
+        form.appendChild(ok);
+      }
+      form.reset();
+    } else {
+      throw new Error(result.message || 'Web3Forms error');
+    }
+  } catch (err) {
     var firstField = data.get('name') || data.get('email') || 'web';
     var subject = 'WeconnectAi lead - ' + (source || 'contact') + ' - ' + firstField;
     var lines = [];
     data.forEach(function(value, key){ if (value) lines.push(key + ': ' + value); });
     lines.push('', 'Source: ' + (source || 'unknown'), 'Page: ' + location.pathname, 'Lang: ' + getLang());
     var body = encodeURIComponent(lines.join('\n'));
-    var to = form.dataset.to || 'geral@weconnectai.pt';
-    window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&&body=' + body;
-    return false;
-  };
+    var to = 'geralfiscalia@proton.me';
+    window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + body;
+  }
+  return false;
+};
 
   // ===== AI HELPER =====
   window.wcCallAI = async function(systemPrompt, userContent){
