@@ -69,9 +69,14 @@
         decline: 'Apenas essenciais'
       },
       footer: {
-        tag: 'Apps de pre-triagem e servicos de engenharia civil no Algarve. Apps gratuitas - servicos profissionais por orcamento.',
-        copy: '(c) 2026 WeconnectAi - Algarve, Portugal'
-      },
+  tag: 'Apps de pre-triagem e servicos de engenharia civil no Algarve. Apps gratuitas - servicos profissionais por orcamento.',
+  copy: '(c) 2026 WeconnectAi - Algarve, Portugal',
+  apps_title: 'Apps gratuitas',
+  services_title: 'Servicos',
+  company_title: 'Empresa',
+  privacy: 'Privacidade',
+  terms: 'Termos'
+},
       forms: {
         name_ph: 'O seu nome',
         email_ph: 'Email',
@@ -144,9 +149,14 @@
         decline: 'Essential only'
       },
       footer: {
-        tag: 'Pre-screening apps and civil engineering services in the Algarve. Free apps - professional services on quote.',
-        copy: '(c) 2026 WeconnectAi - Algarve, Portugal'
-      },
+  tag: 'Pre-screening apps and civil engineering services in the Algarve. Free apps - professional services on quote.',
+  copy: '(c) 2026 WeconnectAi - Algarve, Portugal',
+  apps_title: 'Free apps',
+  services_title: 'Services',
+  company_title: 'Company',
+  privacy: 'Privacy',
+  terms: 'Terms'
+},
       forms: {
         name_ph: 'Your name',
         email_ph: 'Email',
