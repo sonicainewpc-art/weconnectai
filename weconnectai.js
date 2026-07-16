@@ -37,9 +37,9 @@
         eyebrow: 'Servicos profissionais',
         title: 'Quando precisa de um engenheiro de verdade em campo.',
         desc: 'Fazemos o trabalho nos proprios, internamente, com mais de 20 anos de experiencia em engenharia civil no Algarve. Para servicos adjacentes (arquitetos, topografos, advogados), coordenamos parceiros de confianca para que nao tenha de gerir o processo de contratacao.',
-        s1_title: 'Fiscalizacao de obra', s1_p: 'Supervisao independente do local para proteger o interesse do comprador: verificacoes de qualidade, controlo de prazos, conformidade com o projeto licenciado.' },
-        s2_title: 'Conformidade de planeamento urbano', s2_p: 'Versao paga (real) da App 01 - verificacao completa do PDM, pareceres, comunicacoes com a camara, relatorios de due diligence para compradores.' },
-        s3_title: 'Apoio ao licenciamento', s3_p: 'Gestao de ponta a ponta do licenciamento, comunicacao previa ou PIP na camara. Versao real da App 03.' },
+        s1_title: 'Fiscalizacao de obra', s1_p: 'Supervisao independente do local para proteger o interesse do comprador: verificacoes de qualidade, controlo de prazos, conformidade com o projeto licenciado.' ,
+        s2_title: 'Conformidade de planeamento urbano', s2_p: 'Versao paga (real) da App 01 - verificacao completa do PDM, pareceres, comunicacoes com a camara, relatorios de due diligence para compradores.' ,
+        s3_title: 'Apoio ao licenciamento', s3_p: 'Gestao de ponta a ponta do licenciamento, comunicacao previa ou PIP na camara. Versao real da App 03.' ,
         s4_title: 'Gestao de projeto de renegociacao', s4_p: 'Briefing, selecao de empreiteiros, revisao de contrato, coordenacao no local. Versao real da App 04.' }
       },
       about_section: {
@@ -51,7 +51,7 @@
       faq_section: {
         eyebrow: 'FAQ',
         title: 'Perguntas frequentes',
-        q1: 'As apps sao mesmo gratuitas?', a1: 'Sim. Correm no seu browser e usam uma pequena quantidade de creditos de IA por triagem. Sem conta, sem pagamento, sem email necessario para usar as apps.' },
+        q1: 'As apps sao mesmo gratuitas?', a1: 'Sim. Correm no seu browser e usam  creditos de IA por triagem. Sem conta, sem pagamento, sem email necessario para usar as apps.' },
         q2: 'As apps sao uma determinacao legal ou profissional?', a2: 'Nao. Sao apenas pre-triagem preliminar. Veja os nossos termos de uso e o aviso em cada app.' },
         q3: 'Armazenam os dados que escrevo nas apps?', a3: 'As suas ultimas triagens sao guardadas no localStorage do seu browser (nao nos nossos servidores) para poder voltar a elas. Veja a politica de privacidade.' },
         q4: 'Tenho uma propriedade em Lagos / Tavira / Silves - o verificador funciona para o meu concelho?', a4: 'Sim, todos os 16 concelhos do Algarve estao cobertos. A precisao depende do texto do regulamento que cola - sem ele, a ferramenta sinaliza o que verificar em vez de inventar numeros.' },
@@ -117,9 +117,9 @@
         eyebrow: 'Professional services',
         title: 'When you need a real engineer on the ground.',
         desc: 'We do the work ourselves, in-house, with 20+ years of civil engineering experience in the Algarve. For adjacent services (architects, topographers, legal), we coordinate trusted partners so you do not have to run the procurement yourself.',
-        s1_title: 'Construction oversight (fiscalizacao)', s1_p: 'Independent site supervision to protect the buyer interest: workmanship checks, schedule control, conformity with the licensed project.' },
-        s2_title: 'Urban planning compliance', s2_p: 'Real (paid) version of App 01 - full PDM cross-check, pareceres, communications with the camara, due-diligence reports for buyers.' },
-        s3_title: 'Licensing support', s3_p: 'End-to-end management of licenciamento, comunicacao previa, or PIP processes with the camara. Real version of App 03.' },
+        s1_title: 'Construction oversight (fiscalizacao)', s1_p: 'Independent site supervision to protect the buyer interest: workmanship checks, schedule control, conformity with the licensed project.' ,
+        s2_title: 'Urban planning compliance', s2_p: 'Real (paid) version of App 01 - full PDM cross-check, pareceres, communications with the camara, due-diligence reports for buyers.' ,
+        s3_title: 'Licensing support', s3_p: 'End-to-end management of licenciamento, comunicacao previa, or PIP processes with the camara. Real version of App 03.' ,
         s4_title: 'Renovation project management', s4_p: 'Brief, contractor selection, contract review, on-site coordination. Real version of App 04.' }
       },
       about_section: {
