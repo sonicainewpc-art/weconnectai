@@ -1,0 +1,8 @@
+Set-Location "C:\Users\Sonia\Documents\FISCALIA antigo\WEBSITE\weconnectai"
+$lines = @(
+"S.pt.app={compliance:{num:'App 01',title:'Verificador de Conformidade do Algarve',desc:'Cruze o projeto com o PDM.',cta:'Abrir o verificador'},feasibility:{num:'App 02',title:'Viabilidade do Terreno',desc:'Posso construir aqui?',cta:'Abrir ferramenta'},licensing:{num:'App 03',title:'Navegador de Licenciamento',desc:'Acompanhe o processo na camara.',cta:'Abrir o navegador'},renovation:{num:'App 04',title:'Estimador de Renegociacao',desc:'Faixa de EUR/m2 para o Algarve.',cta:'Abrir o estimador'},energy:{num:'App 05',title:'Pre-Avaliacao Certificado Energetico',desc:'Faixa provavel de classe energetica.',cta:'Abrir pre-avaliacao'}};"
+"S.en.app={compliance:{num:'App 01',title:'Algarve Compliance Checker',desc:'Cross-check your project against the PDM.',cta:'Open the checker'},feasibility:{num:'App 02',title:'Land and Property Feasibility',desc:'Can I build or extend here?',cta:'Open the feasibility tool'},licensing:{num:'App 03',title:'Licensing Process Navigator',desc:'Track your camara process.',cta:'Open the navigator'},renovation:{num:'App 04',title:'Renovation Scope and Cost Estimator',desc:'Ballpark EUR/m2 range.',cta:'Open the estimator'},energy:{num:'App 05',title:'Energy Certificate Pre-assessment',desc:'Likely class A+ to F.',cta:'Open the pre-assessment'}};"
+)
+$lines | Out-File -Append -Encoding utf8 weconnectai.js
+Write-Host "Parte 3 OK. Linhas:" (Get-Content weconnectai.js).Count
+Select-String -Path weconnectai.js -Pattern "app.compliance.title" | ForEach-Object { Write-Host "Encontrado:" $_.Line }
