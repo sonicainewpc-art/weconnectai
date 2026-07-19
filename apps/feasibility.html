@@ -1,1 +1,296 @@
-﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Land & Property Feasibility — WeconnectAi</title>
+  <meta name="description" content="Pre-screen whether you can build, extend, or convert on a specific property in the Algarve. Free AI-powered feasibility tool with risk scoring." />
+  <meta name="theme-color" content="#1B2A45" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231B2A45'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-family='Georgia' font-size='18' font-weight='600'%3EW%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../weconnectai.css" />
+</head>
+<body>
+
+<nav class="wc-nav">
+  <div class="wc-nav-inner">
+    <a class="wc-brand" href="/"><span class="wc-brand-mark">W</span><span><span class="wc-brand-name">WeconnectAi</span><span class="wc-brand-tag">Algarve · Engineering</span></span></a>
+    <button class="wc-nav-toggle" aria-label="Menu">Menu</button>
+    <div class="wc-nav-links">
+      <a class="wc-nav-link" href="/#services" data-i18n="nav.services">Services</a>
+      <a class="wc-nav-link active" href="/#apps" data-i18n="nav.apps">Free apps</a>
+      <a class="wc-nav-link" href="/#about" data-i18n="nav.about">About</a>
+      <a class="wc-nav-link" href="/#contact" data-i18n="nav.contact">Contact</a>
+      <div class="wc-lang-switch"><button class="wc-lang-btn" data-lang="pt">PT</button><button class="wc-lang-btn" data-lang="en">EN</button></div>
+      <a class="wc-nav-cta" href="/#contact" data-i18n="nav.book">Request a quote</a>
+    </div>
+  </div>
+</nav>
+
+
+<header class="wc-page-hero" style="padding: 36px 24px 24px;">
+  <div class="wc-page-hero-inner">
+    <div class="wc-eyebrow">App 02 · Feasibility Pre-screening</div>
+    <h1 class="wc-h1" style="font-size: 36px;">Land & Property Feasibility</h1>
+    <p class="wc-lede" style="font-size: 15px;">Can I build / extend / convert here? Combines zoning, cadastro, RAN/REN, coastal servitude, and flood risk into one pre-screening answer — with a risk score and a list of what to confirm with the câmara.</p>
+  </div>
+</header>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+.lfp-root{--paper:#F4F0E4;--paper-line:#E3DCC9;--ink:#1B2A45;--ink-soft:#4C5A72;--teal:#2D6E76;--olive:#5C6E3F;--brick:#A13D2E;--ochre:#B6862C;--white:#FCFBF6;font-family:'IBM Plex Sans',sans-serif;background:var(--paper);background-image:linear-gradient(var(--paper-line) 1px, transparent 1px),linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);background-size:28px 28px;color:var(--ink);padding:24px;border-radius:4px;max-width:var(--maxw);margin:0 auto;box-sizing:border-box}
+.lfp-root *{box-sizing:border-box}
+.lfp-header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.lfp-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal)}
+.lfp-title{font-family:'Fraunces',serif;font-weight:600;font-size:24px;margin:4px 0 0 0;line-height:1.1}
+.lfp-stamp{font-family:'IBM Plex Mono',monospace;font-size:11px;text-align:right;color:var(--ink-soft);border:1px solid var(--ink-soft);padding:6px 10px;border-radius:3px;line-height:1.5}
+.lfp-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:900px){.lfp-grid{grid-template-columns:1fr}}
+.lfp-panel{background:var(--white);border:1px solid var(--paper-line);border-radius:6px;padding:18px}
+.lfp-panel h2{font-family:'Fraunces',serif;font-size:15px;font-weight:600;margin:0 0 12px 0;display:flex;align-items:center;gap:8px}
+.lfp-panel h2 .n{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--white);background:var(--ink);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.lfp-field{margin-bottom:12px}
+.lfp-field label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:4px}
+.lfp-field .hint{font-size:11px;color:var(--ink-soft);opacity:0.85;display:block;margin-top:3px}
+.lfp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input,select,textarea{width:100%;font-family:'IBM Plex Sans',sans-serif;font-size:13px;padding:8px 10px;border:1px solid #C9C2AC;border-radius:4px;background:var(--white);color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--teal);outline-offset:1px;border-color:var(--teal)}
+.lfp-btn{width:100%;background:var(--ink);color:var(--white);border:none;padding:11px 14px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;margin-top:4px}
+.lfp-btn:hover:not(:disabled){background:var(--teal)}
+.lfp-btn:disabled{opacity:0.55;cursor:default}
+.lfp-diagram-wrap{display:flex;justify-content:center;margin-bottom:14px}
+.lfp-gauge{display:flex;flex-direction:column;align-items:center;margin-bottom:18px;padding:14px;background:var(--paper);border-radius:6px}
+.lfp-gauge-label{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px}
+.lfp-gauge-figure{font-family:'Fraunces',serif;font-weight:600;font-size:42px;line-height:1}
+.lfp-gauge-band{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;padding:3px 10px;border-radius:3px;color:var(--white);margin-top:6px;letter-spacing:0.04em;font-weight:600}
+.band-low{background:var(--olive)}.band-medium{background:var(--ochre)}.band-high{background:var(--brick)}
+.lfp-summary{background:#EFEADC;border-left:3px solid var(--teal);padding:11px 13px;font-size:13px;line-height:1.5;border-radius:3px;margin-bottom:14px}
+.lfp-flag{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--paper-line)}
+.lfp-flag:last-child{border-bottom:none}
+.lfp-badge{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;padding:3px 7px;border-radius:3px;color:var(--white);white-space:nowrap;margin-top:1px}
+.badge-ok{background:var(--olive)}.badge-flag{background:var(--ochre)}.badge-block{background:var(--brick)}.badge-needs{background:var(--ink-soft)}
+.lfp-flag-body .param{font-weight:600;font-size:13px;margin-bottom:2px}
+.lfp-flag-body .detail{font-size:12.5px;color:var(--ink-soft);line-height:1.45}
+.lfp-next{margin-top:14px}
+.lfp-next h3{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-soft);margin:0 0 6px 0;font-weight:600}
+.lfp-next ol{margin:6px 0;padding-left:18px}
+.lfp-next li{font-size:13px;line-height:1.5;margin-bottom:4px}
+.lfp-cost{background:var(--paper);border:1px solid var(--paper-line);border-radius:5px;padding:14px;margin-top:14px}
+.lfp-cost-title{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-soft);margin-bottom:6px;font-weight:600}
+.lfp-cost-item{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--paper-line);font-size:13px}
+.lfp-cost-item:last-of-type{border-bottom:none}
+.lfp-cost-item .name{color:var(--ink)}
+.lfp-cost-item .price{font-family:'IBM Plex Mono',monospace;color:var(--ink-soft)}
+.lfp-cost-total{font-family:'Fraunces',serif;font-weight:600;font-size:18px;margin-top:8px;padding-top:8px;border-top:2px solid var(--ink);display:flex;justify-content:space-between}
+.lfp-warn{background:#F1E4CE;border-left:4px solid var(--ochre);padding:10px 13px;font-size:12px;line-height:1.5;border-radius:3px;margin-top:14px}
+.lfp-warn b{color:#7A5A1E}
+.lfp-disclaimer{font-size:11px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;line-height:1.5;margin-top:14px;padding-top:10px;border-top:1px dashed #C9C2AC}
+.lfp-empty{color:var(--ink-soft);font-size:13px;text-align:center;padding:24px 10px}
+.lfp-loading{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal);padding:14px 0}
+.lfp-spinner{width:14px;height:14px;border:2px solid var(--paper-line);border-top-color:var(--teal);border-radius:50%;animation:lfpspin 0.7s linear infinite}
+@keyframes lfpspin{to{transform:rotate(360deg)}}
+</style>
+
+<div class="lfp-root">
+  <div class="lfp-header">
+    <div><div class="lfp-eyebrow">Feasibility Pre-screening — Prototype v0.1</div><h1 class="lfp-title">Land & Property Feasibility</h1></div>
+    <div class="lfp-stamp">16 concelhos · cross-check<br/>Risk score + next actions</div>
+  </div>
+  <div class="lfp-grid">
+    <div class="lfp-panel">
+      <h2><span class="n">1</span>Property & proposed action</h2>
+      <div class="lfp-row">
+        <div class="lfp-field"><label>Municipality (concelho)</label><select id="f-municipality"><option>Albufeira</option><option>Alcoutim</option><option>Aljezur</option><option selected>Faro</option><option>Lagoa</option><option>Lagos</option><option>Loulé</option><option>Monchique</option><option>Olhão</option><option>Portimão</option><option>São Brás de Alportel</option><option>Silves</option><option>Tavira</option><option>Vila do Bispo</option><option>Vila Real de Santo António</option><option>Castro Marim</option></select></div>
+        <div class="lfp-field"><label>Parish / location</label><input id="f-parish" type="text" placeholder="e.g. Almancil, Quarteira, Ferragudo..." /></div>
+      </div>
+      <div class="lfp-row">
+        <div class="lfp-field"><label>Property type</label><select id="f-type"><option>Empty urban plot</option><option>Rural plot with no construction</option><option>Existing house (renovation)</option><option>Existing house (extension)</option><option>Existing building (change of use)</option><option>Ruína (registered or not)</option><option>Quinta / monte rural</option><option>Apartment in condo (renovation)</option></select></div>
+        <div class="lfp-field"><label>Approx. plot area (m²)</label><input id="f-plot" type="number" placeholder="800" /></div>
+      </div>
+      <div class="lfp-row">
+        <div class="lfp-field"><label>Buyer nationality</label><select id="f-nationality"><option>Portuguese (resident or non-resident)</option><option>British</option><option>German</option><option>Dutch</option><option>French</option><option>Other EU</option><option>Non-EU</option><option>Not sure / would rather not say</option></select><span class="hint">Affects bank account / NIF / tax residency complexity. Non-binding.</span></div>
+        <div class="lfp-field"><label>Intended use</label><select id="f-use"><option>Own primary residence</option><option>Holiday home (uso próprio)</option><option>Long-term rental (arrendamento)</option><option>Short-term rental (Alojamento Local / Airbnb)</option><option>Resale (flip)</option><option>Agricultural / quinta use</option></select></div>
+      </div>
+      <h2 style="margin-top:18px;"><span class="n">2</span>What you know about the land</h2>
+      <div class="lfp-row">
+        <div class="lfp-field"><label>Inside urban perimeter (perímetro urbano)?</label><select id="f-urban"><option value="yes">Yes — inside urban perimeter</option><option value="no">No — outside urban perimeter (rural)</option><option value="unsure">Unsure / not checked</option></select></div>
+        <div class="lfp-field"><label>Inside RAN or REN?</label><select id="f-ranren"><option value="no">No</option><option value="ran">RAN only (Reserva Agrícola Nacional)</option><option value="ren">REN only (Reserva Ecológica Nacional)</option><option value="both">Both RAN and REN</option><option value="unsure">Unsure / not checked</option></select></div>
+      </div>
+      <div class="lfp-row">
+        <div class="lfp-field"><label>Distance to coastline</label><select id="f-coast"><option value="over2000">More than 2 km</option><option value="500_2000">500 m – 2 km</option><option value="50_500">50 m – 500 m (servidão costeira applies)</option><option value="under50">Less than 50 m (POOC strictest band)</option><option value="unsure">Unsure</option></select><span class="hint">The 500 m coastal servitude (servidão costeira) is a federal protection, separate from the município's PDM.</span></div>
+        <div class="lfp-field"><label>Inside flood-risk zone (PGRI / ARH Algarve)?</label><select id="f-flood"><option value="no">No / not in a flood-risk area</option><option value="yes">Yes — flagged in PGRI / ARH</option><option value="unsure">Unsure</option></select><span class="hint">Riverside properties (Arade in Silves, Gilão in Tavira, Quarteira in Loulé) often fall in critical flood zones.</span></div>
+      </div>
+      <div class="lfp-row">
+        <div class="lfp-field"><label>Heritage protection (imóvel classificado / em vias)?</label><select id="f-heritage"><option value="no">No</option><option value="yes">Yes — listed or in protected zone (centro histórico)</option><option value="unsure">Unsure</option></select></div>
+        <div class="lfp-field"><label>Existing valid licenças / alvarás?</label><select id="f-existing"><option value="unknown">Don't know yet</option><option value="yes">Yes — have them in hand</option><option value="no">No / never licensed</option><option value="partial">Partial / outdated</option></select></div>
+      </div>
+      <div class="lfp-field"><label>Caderneta predial / artigo matricial (optional)</label><input id="f-cad" type="text" placeholder="e.g. artigo 1234, freguesia de..." /><span class="hint">Helps cross-reference with the município's PDM map. Not required.</span></div>
+      <div class="lfp-field"><label>Anything else worth flagging</label><textarea id="f-notes" placeholder="e.g. neighbouring property is a protected quinta, road access is via a rural path, etc." style="min-height:60px;"></textarea></div>
+      <button class="lfp-btn" id="run-btn">Run feasibility pre-screening</button>
+    </div>
+    <div class="lfp-panel">
+      <h2><span class="n">3</span>Result</h2>
+      <div class="lfp-diagram-wrap" id="diagram-wrap"></div>
+      <div id="gauge-wrap" style="display:none;"></div>
+      <div id="result-wrap"><div class="lfp-empty">Fill in the property details and run a pre-screening to see a risk score, flags, and the list of next actions here.</div></div>
+      <div id="cost-wrap" class="lfp-cost" style="display:none;">
+        <div class="lfp-cost-title">Indicative due-diligence budget</div>
+        <div id="cost-items"></div>
+      </div>
+      <div class="lfp-warn"><b>Algarve-specific watchpoints:</b> coastal 500 m servitude (POOC), RAN in the Silves / Tavira river valleys, REN in the Monchique / serra foothills, and flood-risk (PGRI) along Arade, Gilão, and Quarteira rivers. Any of these changes the answer materially — confirm with the câmara or a lawyer before commitment.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  function drawDiagram(coast, ranren, urban, flood, heritage){
+    const W = 360, H = 240, cx = W/2, cy = H/2, plotR = 70;
+    let oceanWidth = 0;
+    if (coast === 'under50') oceanWidth = 90;
+    else if (coast === '50_500') oceanWidth = 55;
+    else if (coast === '500_2000') oceanWidth = 25;
+    let html = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="background:#FCFBF6;border:1px solid #E3DCC9;border-radius:6px;">`;
+    if (oceanWidth > 0){
+      html += `<rect x="0" y="0" width="${W}" height="${oceanWidth}" fill="#A8C6CC" opacity="0.55"/>`;
+      html += `<text x="8" y="14" font-family="IBM Plex Mono" font-size="9" fill="#1B2A45">coast / servidão costeira band</text>`;
+    }
+    html += `<rect x="0" y="${oceanWidth}" width="${W}" height="${H-oceanWidth}" fill="#F4F0E4"/>`;
+    if (flood === 'yes'){
+      html += `<path d="M 0 ${H} Q ${cx} ${H-50} ${W} ${H-30} L ${W} ${H} Z" fill="#7AA0C8" opacity="0.45"/>`;
+      html += `<text x="${W-110}" y="${H-8}" font-family="IBM Plex Mono" font-size="9" fill="#1B2A45">flood-risk zone</text>`;
+    }
+    if (ranren === 'ren' || ranren === 'both'){ html += `<circle cx="${cx-60}" cy="${cy-10}" r="50" fill="#5C6E3F" opacity="0.30"/><text x="${cx-92}" y="${cy-12}" font-family="IBM Plex Mono" font-size="9" fill="#1B2A45">REN</text>`; }
+    if (ranren === 'ran' || ranren === 'both'){ html += `<circle cx="${cx+50}" cy="${cy+30}" r="55" fill="#B6862C" opacity="0.30"/><text x="${cx+78}" y="${cy+28}" font-family="IBM Plex Mono" font-size="9" fill="#1B2A45">RAN</text>`; }
+    if (heritage === 'yes'){ html += `<rect x="${cx-15}" y="${cy-15}" width="30" height="30" fill="none" stroke="#A13D2E" stroke-width="2" stroke-dasharray="3 2"/>`; }
+    const plotColor = (ranren === 'ren' || ranren === 'both' || heritage === 'yes') ? '#A13D2E' : (urban === 'no' ? '#B6862C' : '#2D6E76');
+    html += `<circle cx="${cx}" cy="${cy}" r="${plotR}" fill="${plotColor}" fill-opacity="0.18" stroke="${plotColor}" stroke-width="2"/><text x="${cx-32}" y="${cy+4}" font-family="IBM Plex Mono" font-size="9" fill="${plotColor}">your plot</text>`;
+    html += `<g transform="translate(${W-30}, 30)"><line x1="0" y1="0" x2="0" y2="18" stroke="#1B2A45" stroke-width="1.5"/><polygon points="-4,2 4,2 0,-6" fill="#1B2A45"/><text x="-3" y="30" font-family="IBM Plex Mono" font-size="9" fill="#1B2A45">N</text></g></svg>`;
+    return html;
+  }
+  function renderEmpty(){ $('diagram-wrap').innerHTML = drawDiagram($('f-coast').value, $('f-ranren').value, $('f-urban').value, $('f-flood').value, $('f-heritage').value); }
+  renderEmpty();
+  ['f-coast','f-ranren','f-urban','f-flood','f-heritage'].forEach(id => $(id).addEventListener('change', renderEmpty));
+
+  function badge(status){ return {ok:'badge-ok',flag:'badge-flag',block:'badge-block',needs_data:'badge-needs'}[status] || 'badge-needs'; }
+  function badgeLabel(status){ return {ok:'OK',flag:'FLAG',block:'BLOCK',needs_data:'NEEDS DATA'}[status] || 'NEEDS DATA'; }
+  function band(score){ if (score <= 33) return {cls:'band-low',label:'LOW RISK'}; if (score <= 66) return {cls:'band-medium',label:'MEDIUM RISK'}; return {cls:'band-high',label:'HIGH RISK'}; }
+
+  function renderCost(){
+    const items = [
+      { name: 'Caderneta predial (certidão permanente)', price: '€15' },
+      { name: 'Certidão de registo predial', price: '€15–30' },
+      { name: 'Planta de localização (câmara, em papel)', price: '€30–80' },
+      { name: 'Pedido de informação prévia (PIP) — fees', price: '€80–250' },
+      { name: 'Topografia / levantamento (if needed)', price: '€350–900' },
+      { name: 'Inquiridor / solicitor pre-purchase report', price: '€400–1,200' },
+      { name: 'Architect / engineer pre-purchase visit (1–2 h)', price: '€250–500' }
+    ];
+    $('cost-items').innerHTML = items.map(i => `<div class="lfp-cost-item"><span class="name">${i.name}</span><span class="price">${i.price}</span></div>`).join('') + `<div class="lfp-cost-total"><span>Indicative total</span><span>€1,140 – €2,970</span></div>`;
+  }
+
+  function renderResult(result){
+    const score = result.risk_score || 50;
+    const b = band(score);
+    $('gauge-wrap').style.display = 'block';
+    $('gauge-wrap').innerHTML = `<div class="lfp-gauge"><div class="lfp-gauge-label">Feasibility risk score</div><div class="lfp-gauge-figure" style="color: ${score<=33?'var(--olive)':score<=66?'var(--ochre)':'var(--brick)'};">${score} <span style="font-size:18px;color:var(--ink-soft);font-family:'IBM Plex Mono';">/ 100</span></div><div class="lfp-gauge-band ${b.cls}">${b.label}</div></div>`;
+    const flags = (result.flags || []).map(f => `<div class="lfp-flag"><span class="lfp-badge ${badge(f.status)}">${badgeLabel(f.status)}</span><div class="lfp-flag-body"><div class="param">${f.parameter}</div><div class="detail">${f.detail}</div></div></div>`).join('');
+    const nexts = (result.next_actions || []).map(n => `<li>${n}</li>`).join('');
+    $('result-wrap').innerHTML = `<div class="lfp-summary">${result.summary || ''}</div><div>${flags || '<div class="lfp-empty">No specific flags raised.</div>'}</div>${nexts ? `<div class="lfp-next"><h3>Next actions before signing</h3><ol>${nexts}</ol></div>` : ''}<div class="lfp-disclaimer">${result.disclaimer || 'Pre-screening, non-binding. Final feasibility requires PIP (pedido de informação prévia) and a real lawyer/engineer review.'}</div>`;
+    $('cost-wrap').style.display = 'block';
+    renderCost();
+  }
+
+  async function run(){
+    const btn = $('run-btn');
+    btn.disabled = true;
+    $('result-wrap').innerHTML = `<div class="lfp-loading"><div class="lfp-spinner"></div>Cross-checking zoning, RAN/REN, POOC, flood risk…</div>`;
+    const payload = {
+      municipality: $('f-municipality').value, parish: $('f-parish').value,
+      property_type: $('f-type').value, plot_area_m2: $('f-plot').value,
+      buyer_nationality: $('f-nationality').value, intended_use: $('f-use').value,
+      urban_perimeter: $('f-urban').value, ran_ren: $('f-ranren').value,
+      coast_distance: $('f-coast').value, flood_risk: $('f-flood').value,
+      heritage: $('f-heritage').value, existing_licenses: $('f-existing').value,
+      caderneta: $('f-cad').value, notes: $('f-notes').value
+    };
+    const systemPrompt = `You are a pre-screening assistant for property/land feasibility in the Algarve, Portugal. You are NOT a lawyer, architect, or licensed engineer, and your output is NOT a legal/professional determination.
+
+Combine the user's inputs about the property and proposed action with the following Algarve-specific framework:
+- Urban perimeter (perímetro urbano) inside the relevant PDM: usually the only place where straightforward new construction is allowed.
+- RAN (Reserva Agrícola Nacional) — extra restrictions, almost always blocks new builds unless agricultural justification.
+- REN (Reserva Ecológica Nacional) — extra restrictions, blocks or severely limits construction in protected ecological zones (coastal dunes, cliffs, riverbanks, serra foothills).
+- POOC (Plano de Ordenamento da Orla Costeira) — federal/national-level rules for properties within the coastal zone. Band 1 (~50m) is most restrictive, Band 2 (~50–500m) still restrictive, beyond 500m the servidão costeira is lifted.
+- PGRI / ARH Algarve — flood risk mapping (Arade, Gilão, Quarteira rivers and tributaries).
+- Heritage (imóvel classificado, área de protecção, centro histórico) — additional consultation required.
+- Existing licenses (alvará) — presence/absence dramatically changes what is allowed.
+- Intended use (short-term rental / Alojamento Local has additional rules and may be restricted in some condominiums or saturated areas).
+- Buyer nationality — affects banking/NIF process but is not a planning constraint; flag it as a side note, not a flag.
+
+Produce:
+1. A risk_score from 0 to 100, where 0 = clearly feasible and 100 = clearly blocked.
+2. A short summary (2–3 sentences) in plain English.
+3. An array "flags" of 4–8 specific checks, each with parameter / status (ok | flag | block | needs_data) / detail. Each flag should reference the specific municipal/regional document that should be checked to confirm.
+4. An array "next_actions": 3–6 concrete, ordered next steps the buyer should take before signing anything (typically: certidões, PIP request, topografia, lawyer review, technical visit).
+5. A disclaimer noting this is pre-screening only, PIP + lawyer + engineer are required for binding answers.
+
+Respond with ONLY valid JSON, no markdown fences, no preamble:
+{"risk_score":<int 0-100>,"summary":"...","flags":[{"parameter":"...","status":"ok|flag|block|needs_data","detail":"..."}],"next_actions":["...","..."],"disclaimer":"..."}`;
+
+    try{
+      const clean = await window.wcCallAI(systemPrompt, `Property & proposed action:\n${JSON.stringify(payload, null, 2)}`);
+      const result = JSON.parse(clean);
+      renderResult(result);
+    } catch(err){
+      $('result-wrap').innerHTML = `<div class="lfp-empty">Something went wrong. Try again.</div>`;
+      console.error(err);
+    } finally { btn.disabled = false; }
+  }
+  $('run-btn').addEventListener('click', run);
+})();
+</script>
+
+<section class="wc-section" style="background: var(--paper); padding: 40px 0;">
+  <div class="wc-container">
+    <div class="wc-lead" style="max-width: 720px;">
+      <h3>Want a real engineer to walk the plot with you?</h3>
+      <p>Pre-purchase technical site visit (1–2 h): zoning confirmation on the ground, RAN/REN spot-check, identification of show-stoppers, written report. Recommended before any contract signature.</p>
+      <form onsubmit="return wcSubmitLead(this, 'feasibility-app')" data-to="geral@weconnectai.pt">
+        <div class="wc-lead-row">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Email" required />
+        </div>
+        <div class="wc-lead-row">
+          <input type="text" name="municipality" placeholder="Municipality / parish" />
+          <input type="text" name="phone" placeholder="Phone / WhatsApp (optional)" />
+        </div>
+        <textarea name="message" placeholder="Property type, intended use, when you'd like the visit." style="margin-bottom: 10px;"></textarea>
+        <button class="wc-lead-btn" type="submit">Request site visit</button>
+        <p class="wc-lead-note">Opens your email client. We reply within one working day.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="wc-cookies hidden">
+  <p data-i18n-html="cookies.body">We use essential cookies (language, session) and — with your consent — measurement cookies. You can change your choice anytime in our <a href="/privacy.html">privacy policy</a>.</p>
+  <div class="wc-cookies-btns">
+    <button data-cookie-accept data-i18n="cookies.accept">Accept</button>
+    <button class="wc-decline" data-cookie-decline data-i18n="cookies.decline">Essential only</button>
+  </div>
+</div>
+
+<footer class="wc-footer">
+  <div class="wc-footer-inner">
+    <div><div class="wc-footer-brand">WeconnectAi</div><p class="wc-footer-tag" data-i18n="footer.tag">Pre-screening apps and civil engineering services in the Algarve. Free apps — professional services on quote.</p></div>
+    <div><h4>Free apps</h4><ul><li><a href="/apps/compliance.html">Compliance</a></li><li><a href="/apps/feasibility.html">Feasibility</a></li><li><a href="/apps/licensing.html">Licensing</a></li><li><a href="/apps/renovation.html">Renovation</a></li><li><a href="/apps/energy.html">Energy</a></li></ul></div>
+    <div><h4>Services</h4><ul><li><a href="/#services">Construction oversight</a></li><li><a href="/#services">Compliance</a></li><li><a href="/#services">Licensing</a></li><li><a href="/#services">Renovation</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="/#about">About</a></li><li><a href="/#contact">Contact</a></li><li><a href="/privacy.html">Privacy</a></li><li><a href="/terms.html">Terms</a></li></ul></div>
+  </div>
+  <div class="wc-footer-bottom"><span data-i18n="footer.copy">© 2026 WeconnectAi · Algarve, Portugal</span><span><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span></div>
+</footer>
+
+<script src="../weconnectai.js"></script>
+</body>
+</html>
