@@ -133,3 +133,5 @@ button{font-family:inherit;cursor:pointer}
 .wc-faq-item{background:var(--white);border:1px solid var(--paper-line);border-radius:var(--radius);padding:18px 22px}
 .wc-faq-q{font-weight:600;font-size:15px;margin:0 0 6px 0;color:var(--ink)}
 .wc-faq-a{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0}
+select, select option { color: #1B2A45; background-color: #FCFBF6; }
+
