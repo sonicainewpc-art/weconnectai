@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+Disallow: /worker/
+Sitemap: https://weconnectai.netlify.app/sitemap.xml
